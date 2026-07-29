@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>集團雲端服務項目說明 — Azure 東南亞</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0A0A0A;
+  --ink-2:#3D3D3D;
+  --ink-3:#767676;
+  --rule:#D8D5CF;
+  --ground:#FFFFFF;
+  --azure:#0078D4;
+  --green:#0E6B2E;
+  --amber:#8A5A00;
+  --vs-purple:#5C2D91;
+  --serif:'DM Serif Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;background:var(--ground);color:var(--ink)}
+body{font-family:var(--sans);line-height:1.55;max-width:1280px;margin:0 auto;padding:0 48px 96px}
+
+/* ── PAGE HEADER ── */
+.page-header{padding:72px 0 0;border-bottom:2px solid var(--ink)}
+.page-eyebrow{font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--azure);margin-bottom:20px}
+.page-title{font-family:var(--serif);font-size:clamp(2.4rem,5vw,4rem);font-weight:400;line-height:1.08;letter-spacing:-.02em;margin-bottom:16px}
+.page-sub{font-size:.88rem;color:var(--ink-3);margin-bottom:32px;max-width:620px;line-height:1.5}
+.page-totals{display:flex;gap:0;border-top:1px solid var(--rule);padding:20px 0}
+.page-total{flex:1;padding:0 28px 0 0;border-right:1px solid var(--rule);margin-right:28px}
+.page-total:last-child{border-right:none;margin-right:0;padding-right:0}
+.pt-label{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.pt-value{font-family:var(--serif);font-size:clamp(1.2rem,2.2vw,1.8rem);line-height:1.1}
+.pt-value span{font-family:var(--sans);font-size:.72rem;color:var(--ink-3);font-weight:400;margin-left:4px}
+.pt-annual{font-size:.78rem;color:var(--ink-3);margin-top:3px;font-family:var(--serif)}
+.pt-annual span{font-family:var(--sans);font-size:.65rem;margin-left:2px}
+.pt-detail{font-size:.68rem;color:var(--ink-3);margin-top:4px}
+
+/* ── SECTION HEADER ── */
+.section-header{margin-top:64px;padding-top:20px;border-top:2px solid var(--ink)}
+.section-tag{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+.section-letter{font-family:var(--serif);font-size:2.8rem;color:var(--azure);line-height:1;flex-shrink:0}
+.section-name{font-family:var(--serif);font-size:1.5rem;color:var(--ink);line-height:1.2}
+.section-meta{font-size:.73rem;color:var(--ink-2);padding-bottom:16px;line-height:1.55}
+.section-badge{
+  display:inline-block;font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:.18rem .5rem;border:1px solid currentColor;border-radius:2px;margin-right:8px;vertical-align:baseline;
+}
+.section-badge.shared{color:var(--green)}
+.section-badge.dev{color:var(--vs-purple)}
+.section-badge.service{color:var(--azure)}
+
+/* ── COLUMN HEADER ── */
+.col-header{
+  display:grid;grid-template-columns:22% 1fr 26% 13%;gap:0 24px;
+  padding:10px 0;border-bottom:1px solid var(--ink);border-top:1px solid var(--rule);
+}
+.col-header-cell{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+
+/* ── SERVICE ROW ── */
+.service-row{
+  display:grid;grid-template-columns:22% 1fr 26% 13%;gap:0 24px;
+  padding:28px 0;border-bottom:1px solid var(--rule);align-items:start;
+}
+.service-row:last-of-type{border-bottom:none}
+
+/* col 1 */
+.svc-id{display:flex;flex-direction:column;gap:10px}
+.svc-icon-name{display:flex;align-items:center;gap:10px}
+.svc-ico{width:28px;height:28px;object-fit:contain;flex-shrink:0}
+.svc-badge-icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:28px;height:28px;border-radius:4px;flex-shrink:0;
+  font-size:.62rem;font-weight:700;color:#fff;
+}
+.svc-badge-icon.vs{background:var(--vs-purple)}
+.svc-badge-icon.ssl{background:var(--green);font-size:.85rem}
+.svc-name{font-size:.85rem;font-weight:700;color:var(--ink);line-height:1.3}
+.svc-use{font-size:.75rem;color:var(--ink-2);line-height:1.55}
+.use-reserve{
+  display:inline-block;font-size:.62rem;font-weight:700;color:var(--amber);
+  border:1px solid currentColor;padding:.1rem .35rem;border-radius:2px;margin-bottom:4px;
+}
+.use-note{
+  display:inline-block;font-size:.62rem;font-weight:700;color:var(--vs-purple);
+  border:1px solid currentColor;padding:.1rem .35rem;border-radius:2px;margin-bottom:4px;
+}
+
+/* col 2 */
+.svc-desc{font-size:.82rem;color:var(--ink-2);line-height:1.6}
+
+/* col 3 */
+.svc-billing{display:flex;flex-direction:column;gap:8px}
+.billing-tier{padding:10px 12px;border-left:3px solid var(--rule)}
+.billing-tier.prod{border-left-color:var(--azure)}
+.billing-tier.test{border-left-color:#90C8F0}
+.billing-tier.shared{border-left-color:var(--green)}
+.billing-tier.note{border-left-color:var(--amber)}
+.billing-tier.vs-new{border-left-color:var(--vs-purple)}
+.billing-tier.vs-renew{border-left-color:#9B6ABE}
+.billing-tier-label{font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:3px}
+.billing-tier.prod .billing-tier-label{color:var(--azure)}
+.billing-tier.test .billing-tier-label{color:#0863A6}
+.billing-tier.shared .billing-tier-label{color:var(--green)}
+.billing-tier.vs-new .billing-tier-label{color:var(--vs-purple)}
+.billing-tier.vs-renew .billing-tier-label{color:#7B4BAF}
+.billing-tier-spec{font-size:.75rem;color:var(--ink-2);line-height:1.4}
+.billing-tier-spec small{font-size:.68rem;color:var(--ink-3);display:block;margin-top:2px}
+
+/* col 4 */
+.svc-cost{display:flex;flex-direction:column;gap:8px;text-align:right}
+.cost-label{font-size:.58rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);margin-bottom:2px}
+.cost-value{font-family:var(--serif);font-size:1.2rem;line-height:1.1;color:var(--ink)}
+.cost-value.prod{color:var(--azure)}
+.cost-value.test{color:#0863A6}
+.cost-value.free{color:var(--green)}
+.cost-value.est{color:var(--amber)}
+.cost-value.vs{color:var(--vs-purple)}
+.cost-value.vs-r{color:#7B4BAF}
+.cost-note{font-size:.65rem;color:var(--ink-3);margin-top:2px;line-height:1.3}
+
+/* ── SECTION SUBTOTAL ── */
+.section-subtotal{
+  border-top:1px solid var(--ink);padding:14px 0;
+  display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+}
+.subtotal-label{
+  font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);display:flex;align-items:center;gap:10px;flex:1;
+}
+.subtotal-label::after{content:'';flex:1;height:1px;background:var(--rule)}
+.subtotal-value{font-family:var(--serif);font-size:1.45rem;color:var(--ink);white-space:nowrap}
+.subtotal-value small{font-family:var(--sans);font-size:.65rem;color:var(--ink-3);font-weight:400;margin-left:4px}
+
+/* ── GRAND TOTAL ── */
+.grand-total-section{margin-top:56px;border-top:2px solid var(--ink);padding-top:24px}
+.grand-total-title{font-family:var(--serif);font-size:1.2rem;margin-bottom:16px}
+.grand-total-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.total-card{padding:28px 32px;background:var(--ink);color:#fff}
+.total-card.alt{background:#1A3A5C}
+.total-card-label{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:10px}
+.total-card-value{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);color:#fff;line-height:1.1;margin-bottom:4px}
+.total-card-period{font-size:.75rem;color:rgba(255,255,255,.5)}
+.total-card-breakdown{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.15);font-size:.72rem;color:rgba(255,255,255,.7);line-height:1.9}
+.tl{display:flex;justify-content:space-between}
+.tl.credit{color:#6CE09A}
+.tl.net{color:#fff;font-weight:700;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.25)}
+.vs-note{margin-top:14px;padding:10px 14px;background:rgba(255,255,255,.07);border-left:3px solid rgba(155,106,190,.7);font-size:.7rem;color:rgba(255,255,255,.65);line-height:1.5}
+
+/* ── FOOTNOTE ── */
+.footnote{margin-top:32px;font-size:.7rem;color:var(--ink-3);line-height:1.7;border-top:1px solid var(--rule);padding-top:16px}
+
+.incr-row{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.incr-row:last-of-type{border-bottom:none}
+.incr-name{font-size:.78rem;font-weight:600;color:rgba(255,255,255,.9)}
+.incr-sub{font-size:.68rem;color:rgba(255,255,255,.45);flex:1;padding:0 10px}
+.incr-cost{font-family:var(--serif);font-size:.95rem;color:rgba(255,255,255,.9);white-space:nowrap}
+.incr-cost.free{color:#6CE09A}
+.incr-divider{height:1px;background:rgba(255,255,255,.25);margin:10px 0}
+.incr-total{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0 0;font-size:.78rem;font-weight:700;color:#fff}
+.incr-total .it-val{font-family:var(--serif);font-size:1.3rem}
+@media print{body{padding:24px;max-width:none}}
+</style>
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <div class="page-eyebrow">集團雲端服務項目說明</div>
+  <h1 class="page-title">Azure 服務清單</h1>
+  <p class="page-sub">Microsoft Azure 東南亞（新加坡）· 2026 年 7 月報價 · 未含稅<br>費用依微軟官方定價計算機，實際金額隨匯率與使用量調整。</p>
+  <div class="page-totals">
+    <div class="page-total">
+      <div class="pt-label">A · 集團共用基礎建設</div>
+      <div class="pt-value">NT$16,690 <span>/ 月</span></div>
+      <div class="pt-annual">NT$200,280 <span>/ 年</span></div>
+    </div>
+    <div class="page-total">
+      <div class="pt-label">B · 集團開發平台（VS Pro 新購）</div>
+      <div class="pt-value">NT$31,997 <span>/ 月</span></div>
+      <div class="pt-annual">NT$383,964 <span>/ 年</span></div>
+    </div>
+    <div class="page-total">
+      <div class="pt-label">C · 報工系統 服務專屬</div>
+      <div class="pt-value">NT$30,941 <span>/ 月</span></div>
+      <div class="pt-annual">NT$371,292 <span>/ 年</span></div>
+    </div>
+    <div class="page-total">
+      <div class="pt-label">第一年預算總計</div>
+      <div class="pt-value">NT$955,536 <span>/ 年</span></div>
+      <div class="pt-detail">月均 NT$79,628</div>
+    </div>
+  </div>
+</header>
+
+
+<!-- ════════════════════════════
+     A：集團共用基礎建設
+     ════════════════════════════ -->
+<div class="section-header">
+  <div class="section-tag">
+    <span class="section-letter">A</span>
+    <span class="section-name">集團共用基礎建設</span>
+  </div>
+  <p class="section-meta">
+    <span class="section-badge shared">IT 統籌</span>
+    為集團雲端環境的必要基礎，與報工系統等個別服務無關。無論日後有幾個系統上雲，此層費用幾乎維持不變，建議由集團 IT 預算統籌負擔，不分攤至個別服務 TCO。
+  </p>
+</div>
+
+<div class="col-header">
+  <div class="col-header-cell">服務</div>
+  <div class="col-header-cell">服務說明</div>
+  <div class="col-header-cell">計費方式與規格</div>
+  <div class="col-header-cell" style="text-align:right">月費（NT$）</div>
+</div>
+
+<div class="service-row">
+  <div class="svc-id">
+    <div class="svc-icon-name">
+      <img class="svc-ico" src="../../../assets/azure/icons-v24/networking/10063-icon-service-Virtual-Network-Gateways.svg" alt="">
+      <div class="svc-name">Azure VPN Gateway</div>
+    </div>
+    <div class="svc-use">雲端與集團內網之間的加密通道，所有雲端系統共用，不屬於任何單一系統 TCO。報工系統透過此通道存取公司內部郵件伺服器。</div>
+  </div>
+  <div class="svc-desc">雲端與公司內部網路之間的加密專用通道。讓所有雲端系統可安全存取公司內網資源（郵件伺服器、ERP、HR 系統等），傳輸全程加密，等同公司專線延伸至雲端。</div>
+  <div class="svc-billing">
+    <div class="billing-tier shared">
+      <div class="billing-tier-label">集團共用</div>
+      <div class="billing-tier-spec">VpnGw2 · 最大 1.25 Gbps · 支援 10 條連線 · SLA 99.95%<br>月繳固定費用，不論多少系統連接均相同</div>
+    </div>
+  </div>
+  <div class="svc-cost">
+    <div class="cost-label">每月</div>
+    <div class="cost-value prod">11,420</div>
+  </div>
+</div>
+
+<div class="service-row">
+  <div class="svc-id">
+    <div class="svc-icon-name">
+      <img class="svc-ico" src="../../../assets/azure/icons-v24/networking/10061-icon-service-Virtual-Networks.svg" alt="">
+      <div class="svc-name">Azure Virtual Network</div>
+    </div>
+    <div class="svc-use">集團 Azure 雲端私有網路骨幹，所有雲端服務共用同一個 VNet，透過子網路隔離各系統。</div>
+  </div>
+  <div class="svc-desc">在 Azure 雲端建立集團專屬的私有網路空間。確保各雲端服務之間的資料傳輸不走公開網際網路，功能類似公司內網的網段設計。</div>
+  <div class="svc-billing">
+    <div class="billing-tier shared">
+      <div class="billing-tier-label">集團共用</div>
+      <div class="billing-tier-spec">依跨區域流量計費，同區域內流量免費</div>
+    </div>
+  </div>
+  <div class="svc-cost">
+    <div class="cost-label">每月（估）</div>
+    <div class="cost-value prod">128</div>
+  </div>
+</div>
+
+<div class="service-row">
+  <div class="svc-id">
+    <div class="svc-icon-name">
+      <img class="svc-ico" src="../../../assets/azure/icons-v24/security/10245-icon-service-Key-Vaults.svg" alt="">
+      <div class="svc-name">Azure Key Vault</div>
+    </div>
+    <div class="svc-use">集中存放集團所有雲端服務的密碼、金鑰與憑證。報工系統的資料庫密碼、AD 金鑰、郵件帳號均存放於此。</div>
+  </div>
+  <div class="svc-desc">雲端數位保險箱。任何存取動作均有完整稽核記錄，支援人員離職後密碼快速更換。各服務透過 Managed Identity 存取，金鑰不出現在任何程式碼或設定檔。</div>
+  <div class="svc-billing">
+    <div class="billing-tier shared">
+      <div class="billing-tier-label">集團共用</div>
+      <div class="billing-tier-spec">依操作次數計費（每月 10 萬次基本操作）<br>一個保險箱供集團所有服務共用</div>
+    </div>
+  </div>
+  <div class="svc-cost">
+    <div class="cost-label">每月</div>
+    <div class="cost-value prod">536</div>
+  </div>
+</div>
+
+<div class="service-row">
+  <div class="svc-id">
+    <div class="svc-icon-name">
+      <img class="svc-ico" src="../../../assets/azure/icons-v24/storage/10086-icon-service-Storage-Accounts.svg" alt="">
+      <div class="svc-name">Azure Storage Account</div>
+    </div>
+    <div class="svc-use">集團雲端備份與日誌的長期封存儲存體，供所有系統共用。報工系統的資料庫長期備份（35 天以上）與操作記錄存放於此。</div>
+  </div>
+  <div class="svc-desc">雲端通用儲存空間，適合大量非結構化資料（備份、日誌、文件）的長期保存。提供異地備援（GRS），資料自動複製至次要地區。</div>
+  <div class="svc-billing">
+    <div class="billing-tier shared">
+      <div class="billing-tier-label">集團共用</div>
+      <div class="billing-tier-spec">依儲存容量計費 · 1 TB 含異地備援（GRS）<br>集團多個系統共用</div>
+    </div>
+  </div>
+  <div class="svc-cost">
+    <div class="cost-label">每月</div>
+    <div class="cost-value prod">4,236</div>
+  </div>
+</div>
+
+<div class="service-row">
+  <div class="svc-id">
+    <div class="svc-icon-name">
+      <img class="svc-ico" src="../../../assets/azure/icons-v24/networking/10064-icon-service-DNS-Zones.svg" alt="">
+      <div class="svc-name">Azure DNS</div>
+    </div>
+    <div class="svc-use">管理集團所有雲端服務的網域對應，及雲端服務之間的內部私有網域解析。</div>
+  </div>
+  <div class="svc-desc">網域名稱管理服務，負責將人類可讀的網址轉換為伺服器 IP 位址，並管理雲端各服務之間的私有域名解析。</div>
+  <div class="svc-billing">
+    <div class="billing-tier shared">
+      <div class="billing-tier-label">集團共用</div>
+      <div class="billing-tier-spec">依管理區域數與查詢量計費</div>
+    </div>
+  </div>
+  <div class="svc-cost">
+    <div class="cost-label">每月</div>
+    <div class="cost-value prod">160</div>
+  </div>
+</div>
+
+<div class="service-row">
+  <div class="svc-id">
+    <div class="svc-icon-name">
+      <img class="svc-ico" src="../../../assets/azure/icons-v24/monitor/00001-icon-service-Monitor.svg" alt="">
+      <div class="svc-name">Azure Monitor</div>
+    </div>
+    <div class="svc-use">監控集團所有雲端服務的健康狀態，包含主機效能、錯誤率、回應時間，並在異常時主動通知 IT 人員。</div>
+  </div>
+  <div class="svc-desc">雲端系統健康監控平台，持續收集系統指標並可設定警示規則。基本監控功能免費；進階日誌分析依資料量計費。</div>
+  <div class="svc-billing">
+    <div class="billing-tier shared">
+      <div class="billing-tier-label">集團共用</div>
+      <div class="billing-tier-spec">基本監控（效能指標＋警示）免費<br>初期預估在免費額度內</div>
+    </div>
+  </div>
+  <div class="svc-cost">
+    <div class="cost-label">Phase 1</div>
+    <div class="cost-value free">免費</div>
+  </div>
+</div>
+
+<div class="service-row">
+  <div class="svc-id">
+    <div class="svc-icon-name">
+      <img class="svc-ico" src="../../../assets/azure/icons-v24/compute/10029-icon-service-Function-Apps.svg" alt="">
+      <div class="svc-name">Azure Functions</div>
+    </div>
+    <div class="svc-use"><span class="use-reserve">集團平台預留</span><br>報工系統本身不使用，預留供集團未來其他服務使用。</div>
+  </div>
+  <div class="svc-desc">輕量雲端自動化服務，「隨用隨付」計費，閒置不收費。適用於定時任務、Webhook、資料轉換等場景。</div>
+  <div class="svc-billing">
+    <div class="billing-tier note">
+      <div class="billing-tier-label">集團平台預留</div>
+      <div class="billing-tier-spec">依執行次數計費，每月前 100 萬次免費<br>以每月 10,000 次執行估算</div>
+    </div>
+  </div>
+  <div class="svc-cost">
+    <div class="cost-label">每月（估）</div>
+    <div class="cost-value est">115</div>
+  </div>
+</div>
+
+<div class="service-row">
+  <div class="svc-id">
+    <div class="svc-icon-name">
+      <img class="svc-ico" src="../../../assets/azure/icons-v24/integration/02631-icon-service-Logic-Apps.svg" alt="">
+      <div class="svc-name">Azure Logic Apps</div>
+    </div>
+    <div class="svc-use"><span class="use-reserve">集團平台預留</span><br>預留供未來跨系統整合流程使用（如 HR 系統與報工系統人員資料同步）。</div>
+  </div>
+  <div class="svc-desc">低程式碼工作流程自動化工具，內建 400+ 系統連接器（Microsoft 365、Teams、SAP 等），適合跨部門流程整合。</div>
+  <div class="svc-billing">
+    <div class="billing-tier note">
+      <div class="billing-tier-label">集團平台預留</div>
+      <div class="billing-tier-spec">依執行動作次數計費（使用量方案）</div>
+    </div>
+  </div>
+  <div class="svc-cost">
+    <div class="cost-label">每月（估）</div>
+    <div class="cost-value est">95</div>
+  </div>
+</div>
+
+<div class="section-subtotal">
+  <span class="subtotal-label">Section A 小計</span>
+  <span class="subtotal-value">NT$16,690 <small>/ 月</small></span>
+</div>
+
+
+<!-- ════════════════════════════
+     B：集團開發平台
+     ════════════════════════════ -->
+<div class="section-header">
+  <div class="section-tag">
+    <span class="section-letter">B</span>
+    <span class="section-name">集團開發平台授權</span>
+  </div>
+  <p class="section-meta">
+    <span class="section-badge dev">IT 統籌</span>
+    開發人員工具與 CI/CD 平台，集團所有開發專案共用。Visual Studio Professional 已含 Azure DevOps Basic 授權，無需另外購買 ADO 用戶授權。
+  </p>
+</div>
+
+<div class="col-header">
+  <div class="col-header-cell">服務</div>
+  <div class="col-header-cell">授權內容</div>
+  <div class="col-header-cell">計費方式</div>
+  <div class="col-header-cell" style="text-align:right">月費（NT$）</div>
+</div>
+
+<div class="service-row">
+  <div class="svc-id">
+    <div class="svc-icon-name">
+      <span class="svc-badge-icon vs">VS</span>
+      <div class="svc-name">Visual Studio Professional</div>
+    </div>
+    <div class="svc-use">
+      <span class="use-note">已含 ADO Basic</span><br>
+      集團 10 位開發人員的 IDE 授權與開發平台。含 Azure DevOps Basic（程式碼版控、CI/CD）、每人每月 $50 美元 Azure 點數（合計 NT$16,000/月可抵 Azure 費用）、基本開發測試軟體、訓練與支援。
+    </div>
+  </div>
+  <div class="svc-desc">
+    Microsoft 官方開發工具套件<br>
+    · Visual Studio Professional IDE（完整版）<br>
+    · Azure DevOps Basic（程式碼版控、Boards、Pipelines）<br>
+  </div>
+  <div class="svc-billing">
+    <div class="billing-tier vs-new">
+      <div class="billing-tier-label">新購</div>
+      <div class="billing-tier-spec">$99.99 美元/人/月 × 10 人 = $999.90 USD
+        <small>NT$31,997/月（以 NT$32/USD 換算）</small>
+      </div>
+    </div>
+    <div class="billing-tier vs-renew">
+      <div class="billing-tier-label">後續續約</div>
+      <div class="billing-tier-spec">$66.59 美元/人/月 × 10 人 = $665.90 USD
+        <small>NT$21,309/月（以 NT$32/USD 換算）</small>
+      </div>
+    </div>
+  </div>
+  <div class="svc-cost">
+    <div class="cost-label">新購</div>
+    <div class="cost-value vs">31,997</div>
+  </div>
+</div>
+
+<div class="section-subtotal">
+  <span class="subtotal-label">Section B 小計</span>
+  <span class="subtotal-value">NT$21,309 <small>/ 月（續約）&ensp;·&ensp;NT$31,997（新購）</small></span>
+</div>
+
+
+<!-- ════════════════════════════
+     C：報工系統 服務專屬資源
+     ════════════════════════════ -->
+<div class="section-header">
+  <div class="section-tag">
+    <span class="section-letter">C</span>
+    <span class="section-name">報工系統 — 服務專屬資源</span>
+  </div>
+  <p class="section-meta">
+    <span class="section-badge service">服務自負</span>
+    僅供報工系統使用的雲端資源，費用歸屬報工系統預算。未來若有其他系統上雲，各系統自行負擔同層費用；Section A、B 不因此增加。新增系統的增量成本約為 NT$22,000～35,000/月（App Service + SQL + 額外 Private Link 端點）。
+  </p>
+</div>
+
+<div class="col-header">
+  <div class="col-header-cell">服務</div>
+  <div class="col-header-cell">服務說明</div>
+  <div class="col-header-cell">計費方式與規格</div>
+  <div class="col-header-cell" style="text-align:right">月費（NT$）</div>
+</div>
+
+<div class="service-row">
+  <div class="svc-id">
+    <div class="svc-icon-name">
+      <img class="svc-ico" src="../../../assets/azure/icons-v24/app services/10035-icon-service-App-Services.svg" alt="">
+      <div class="svc-name">Azure App Service</div>
+    </div>
+    <div class="svc-use">報工系統主機，正式機供員工日常使用，測試機供開發驗證。含員工填報介面、主管審核功能及排程提醒寄送（Hangfire）。</div>
+  </div>
+  <div class="svc-desc">雲端網站與應用程式的主機平台。微軟負責底層維護、安全更新與備援，企業只需部署程式碼。支援 VNet Integration、部署 Slot（零停機更新）。</div>
+  <div class="svc-billing">
+    <div class="billing-tier prod">
+      <div class="billing-tier-label">正式機</div>
+      <div class="billing-tier-spec">P1V3 · 2 vCPU · 8 GB RAM · Windows<br>月繳固定費用，可承載 200～500 人同時使用</div>
+    </div>
+    <div class="billing-tier test">
+      <div class="billing-tier-label">測試機</div>
+      <div class="billing-tier-spec">S2 · 2 core · 3.5 GB RAM<br>月繳固定費用，供開發驗證使用</div>
+    </div>
+  </div>
+  <div class="svc-cost">
+    <div class="cost-label">正式機</div>
+    <div class="cost-value prod">7,992</div>
+    <div style="margin-top:10px">
+      <div class="cost-label">測試機</div>
+      <div class="cost-value test">4,660</div>
+    </div>
+  </div>
+</div>
+
+<div class="service-row">
+  <div class="svc-id">
+    <div class="svc-icon-name">
+      <img class="svc-ico" src="../../../assets/azure/icons-v24/databases/10130-icon-service-SQL-Database.svg" alt="">
+      <div class="svc-name">Azure SQL Database</div>
+    </div>
+    <div class="svc-use">儲存員工基本資料、每日報工紀錄、主管審核明細、公司分帳設定及系統操作記錄。正式與測試各為獨立資料庫。</div>
+  </div>
+  <div class="svc-desc">雲端關聯式資料庫，微軟自動執行每日備份（最長 35 天還原）、異地備援（GRS）及安全性維護。與 SQL Server 相容，現有 T-SQL 及 EF Core Migration 不需修改。</div>
+  <div class="svc-billing">
+    <div class="billing-tier prod">
+      <div class="billing-tier-label">正式機</div>
+      <div class="billing-tier-spec">S4 · 200 DTU · 500 GB · 含異地備援（GRS）</div>
+    </div>
+    <div class="billing-tier test">
+      <div class="billing-tier-label">測試機</div>
+      <div class="billing-tier-spec">S3 · 100 DTU · 250 GB · 含異地備援（GRS）</div>
+    </div>
+  </div>
+  <div class="svc-cost">
+    <div class="cost-label">正式機</div>
+    <div class="cost-value prod">12,117</div>
+    <div style="margin-top:10px">
+      <div class="cost-label">測試機</div>
+      <div class="cost-value test">5,176</div>
+    </div>
+  </div>
+</div>
+
+<div class="service-row">
+  <div class="svc-id">
+    <div class="svc-icon-name">
+      <img class="svc-ico" src="../../../assets/azure/icons-v24/networking/00427-icon-service-Private-Link.svg" alt="">
+      <div class="svc-name">Azure Private Link</div>
+    </div>
+    <div class="svc-use">
+      報工系統的 4 個私有端點：<br>
+      ① App Service 端點（限 VPN 才能連入）<br>
+      ② SQL Database 端點<br>
+      ③ Key Vault 端點<br>
+      ④ 預留端點（未來使用）<br>
+      <span style="font-size:.7rem;color:var(--ink-3);display:block;margin-top:4px">未來每新增一個系統約增加 NT$498～750（2～3 端點）。</span>
+    </div>
+  </div>
+  <div class="svc-desc">讓雲端服務擁有集團內部私有 IP，對外完全隱藏，不暴露在公開網際網路。使用者只能從公司內網或 VPN 連進系統，連登入頁對外都不會出現。每個端點對應一項服務的私有連線。</div>
+  <div class="svc-billing">
+    <div class="billing-tier prod">
+      <div class="billing-tier-label">報工系統 · 4 個端點</div>
+      <div class="billing-tier-spec">約 NT$249/端點/月<br>未來每新增一個系統：+NT$498～750（2～3 端點）</div>
+    </div>
+  </div>
+  <div class="svc-cost">
+    <div class="cost-label">每月（4 端點）</div>
+    <div class="cost-value prod">996</div>
+  </div>
+</div>
+
+<div class="service-row">
+  <div class="svc-id">
+    <div class="svc-icon-name">
+      <span class="svc-badge-icon ssl">🔒</span>
+      <div class="svc-name">SSL 憑證</div>
+    </div>
+    <div class="svc-use">確保所有使用者存取報工系統的連線全程加密，符合資訊安全基本要求。</div>
+  </div>
+  <div class="svc-desc">網站安全加密認證，確保資料傳輸全程加密。方案選擇取決於網路存取策略（VPN only vs. 對外開放）。</div>
+  <div class="svc-billing">
+    <div class="billing-tier prod">
+      <div class="billing-tier-label">情境一（建議 · Phase 1）</div>
+      <div class="billing-tier-spec">Azure 免費受管憑證，僅允許公司 VPN 連入，自動核發與續約</div>
+    </div>
+    <div class="billing-tier test">
+      <div class="billing-tier-label">情境二（無對外 IP 方案）</div>
+      <div class="billing-tier-spec">向第三方購買，存入 Key Vault 管理<br>單域 NT$167～417/月；Wildcard NT$667～833/月</div>
+    </div>
+  </div>
+  <div class="svc-cost">
+    <div class="cost-label">情境一</div>
+    <div class="cost-value free">免費</div>
+    <div style="margin-top:10px">
+      <div class="cost-label">情境二</div>
+      <div class="cost-value est">167–800</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-subtotal">
+  <span class="subtotal-label">Section C 小計</span>
+  <span class="subtotal-value">NT$30,941 <small>/ 月（SSL 情境一）</small></span>
+</div>
+
+
+<!-- GRAND TOTAL -->
+<div class="grand-total-section">
+  <p class="grand-total-title">費用總覽</p>
+  <div class="grand-total-grid">
+
+    <!-- Year 1 Annual Total -->
+    <div class="total-card">
+      <div class="total-card-label">第一年總費用（VS Professional 新購）</div>
+      <div class="total-card-value">NT$79,628 <span style="font-family:var(--sans);font-size:1rem;opacity:.6">/ 月</span></div>
+      <div class="total-card-period">年化 NT$955,536</div>
+      <div class="total-card-breakdown">
+        <div class="tl"><span>A. 集團共用基礎建設 × 12 個月</span><span>200,280</span></div>
+        <div class="tl"><span>B. VS Pro 10 人（新購）× 12 個月</span><span>383,964</span></div>
+        <div class="tl"><span>C. 報工系統服務專屬 × 12 個月</span><span>371,292</span></div>
+      </div>
+      <div class="vs-note">第二年起可以續約價續訂，Section B 降為 NT$255,708/年，年費約降至 NT$827,280。</div>
+    </div>
+
+    <!-- Future Service Increment -->
+    <div class="total-card alt">
+      <div class="total-card-label">未來新增系統 — 增量費用</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.5);margin-bottom:16px;line-height:1.5">
+        Section A（基礎建設）、B（VS Pro）不會因新增系統而增加<br>每新增一個系統，只需自行負擔以下服務費用：
+      </div>
+      <div class="incr-row">
+        <span class="incr-name">Azure App Service</span>
+        <span class="incr-sub">正式機 + 測試機</span>
+        <span class="incr-cost">NT$12,652 / 月起</span>
+      </div>
+      <div class="incr-row">
+        <span class="incr-name">Azure SQL Database</span>
+        <span class="incr-sub">正式機 + 測試機</span>
+        <span class="incr-cost">NT$17,293 / 月起</span>
+      </div>
+      <div class="incr-row">
+        <span class="incr-name">Azure Private Link</span>
+        <span class="incr-sub">2～3 個端點</span>
+        <span class="incr-cost">NT$498～750 / 月</span>
+      </div>
+      <div class="incr-divider"></div>
+      <div class="incr-total">
+        <span>增量小計（同等規模）</span>
+        <span class="it-val">約 NT$30,443 / 月</span>
+      </div>
+      <div class="vs-note" style="margin-top:14px;border-left-color:rgba(144,200,240,.5)">規格較輕量（S2 主機 + S1 資料庫）最低約 NT$10,000/月。VPN Gateway 已支援多系統共用連線，不需額外費用。</div>
+    </div>
+
+  </div>
+</div>
+
+<p class="footnote">費用依 Microsoft Azure 定價計算機（東南亞，2026/07）及 Microsoft 官方定價，原價為USD，已換算成TWD。</p>
+
+</body>
+</html>
